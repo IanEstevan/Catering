@@ -24,8 +24,6 @@ import ar.edu.unahur.obj2.catering.propuestas.Servicio;
 
 public class cartaTest {
 
-    private static final double DELTA = 0.001;
-
     private Carta carta;
     private GestorCarta gestor;
     private Menu parrillero;
@@ -69,42 +67,42 @@ public class cartaTest {
         gestor.revertirUltima();
 
         assertTrue(parrillero.incluye("Mesa dulce"));
-        assertEquals(342_000, parrillero.precio(), DELTA);
+        assertEquals(342000, parrillero.precio());
     }
 
     @Test
     void dadaUnaActualizacionDePrecio_alRevertirla_devuelveElPrecioAnterior() throws Exception {
 
-        gestor.aplicar(new ActualizarPrecio(parrillada, 260_000));
+        gestor.aplicar(new ActualizarPrecio(parrillada, 260000));
 
-        assertEquals(260_000, parrillada.precio(), DELTA);
+        assertEquals(260000, parrillada.precio());
 
         gestor.revertirUltima();
 
-        assertEquals(240_000, parrillada.precio(), DELTA);
+        assertEquals(240000, parrillada.precio());
     }
 
     @Test
     void dadaUnaSecuenciaDeModificacionesInmediatas_alRevertirlas_seDeshacenEnOrdenInverso() throws Exception {
-        assertEquals(342_000, parrillero.precio(), DELTA);
+        assertEquals(342000, parrillero.precio());
 
         gestor.aplicar(new AgregarPropuesta(parrillero, fotografo));
-        assertEquals(432_000, parrillero.precio(), DELTA);
+        assertEquals(432000, parrillero.precio());
 
-        gestor.aplicar(new ActualizarPrecio(parrillada, 260_000));
-        assertEquals(450_000, parrillero.precio(), DELTA);
+        gestor.aplicar(new ActualizarPrecio(parrillada, 260000));
+        assertEquals(450000, parrillero.precio());
 
         gestor.aplicar(new QuitarPropuesta(parrillero, mesaDulce));
-        assertEquals(396_000, parrillero.precio(), DELTA);
+        assertEquals(396000, parrillero.precio());
 
         gestor.revertirUltima();
-        assertEquals(450_000, parrillero.precio(), DELTA);
+        assertEquals(450000, parrillero.precio());
 
         gestor.revertirUltima();
-        assertEquals(432_000, parrillero.precio(), DELTA);
+        assertEquals(432000, parrillero.precio());
 
         gestor.revertirUltima();
-        assertEquals(342_000, parrillero.precio(), DELTA);
+        assertEquals(342000, parrillero.precio());
 
         assertThrows(NadaParaRevertirException.class, () -> gestor.revertirUltima());
     }
@@ -112,19 +110,19 @@ public class cartaTest {
     @Test
     void dadasDosActualizacionesDelMismoServicioCreadasAntesDeAplicar_alRevertirlas_seDeshacenEnCadena() throws Exception {
 
-        Modificacion a260 = new ActualizarPrecio(parrillada, 260_000);
-        Modificacion a300 = new ActualizarPrecio(parrillada, 300_000);
+        Modificacion a260 = new ActualizarPrecio(parrillada, 260000);
+        Modificacion a300 = new ActualizarPrecio(parrillada, 300000);
 
         gestor.aplicar(a260);
         gestor.aplicar(a300);
 
-        assertEquals(300_000, parrillada.precio(), DELTA);
+        assertEquals(300000, parrillada.precio());
 
         gestor.revertirUltima();
-        assertEquals(260_000, parrillada.precio(), DELTA);
+        assertEquals(260000, parrillada.precio());
 
         gestor.revertirUltima();
-        assertEquals(240_000, parrillada.precio(), DELTA);
+        assertEquals(240000, parrillada.precio());
     }
 
     @Test
@@ -133,14 +131,14 @@ public class cartaTest {
         gestor.aplicar(new AgregarPropuesta(parrillero, fotografo));
 
         assertThrows(PropuestaNoIncluidaException.class, () -> gestor.aplicarLote(List.of(
-                new ActualizarPrecio(parrillada, 260_000),
+                new ActualizarPrecio(parrillada, 260000),
                 new QuitarPropuesta(parrillero, barraDeTragos))));
 
-        assertEquals(432_000, parrillero.precio(), DELTA);
-        assertEquals(240_000, parrillada.precio(), DELTA);
+        assertEquals(432000, parrillero.precio());
+        assertEquals(240000, parrillada.precio());
 
         gestor.revertirUltima();
-        assertEquals(342_000, parrillero.precio(), DELTA);
+        assertEquals(342000, parrillero.precio());
         assertThrows(NadaParaRevertirException.class, () -> gestor.revertirUltima());
     }
 
@@ -154,7 +152,7 @@ public class cartaTest {
         assertThrows(PrecioNegativoException.class, () -> gestor.aplicarLote(lote));
 
         assertFalse(parrillero.incluye("Fotógrafo"));
-        assertEquals(342_000, parrillero.precio(), DELTA);
+        assertEquals(342000, parrillero.precio());
         assertThrows(NadaParaRevertirException.class, () -> gestor.revertirUltima());
     }
 
@@ -163,7 +161,7 @@ public class cartaTest {
 
         gestor.aplicarLote(List.of());
 
-        assertEquals(342_000, parrillero.precio(), DELTA);
+        assertEquals(342000, parrillero.precio());
         assertThrows(NadaParaRevertirException.class, () -> gestor.revertirUltima());
     }
 
@@ -174,7 +172,7 @@ public class cartaTest {
                 () -> gestor.aplicar(new QuitarPropuesta(parrillero, barraDeTragos)));
 
         assertEquals(3, parrillero.cantidadServicios());
-        assertEquals(342_000, parrillero.precio(), DELTA);
+        assertEquals(342000, parrillero.precio());
     }
 
     @Test
@@ -183,7 +181,7 @@ public class cartaTest {
         assertThrows(PrecioNegativoException.class,
                 () -> gestor.aplicar(new ActualizarPrecio(parrillada, -1)));
 
-        assertEquals(240_000, parrillada.precio(), DELTA);
+        assertEquals(240000, parrillada.precio());
         assertThrows(NadaParaRevertirException.class, () -> gestor.revertirUltima());
     }
 

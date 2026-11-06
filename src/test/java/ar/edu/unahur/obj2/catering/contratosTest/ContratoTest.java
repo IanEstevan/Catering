@@ -20,25 +20,22 @@ public class ContratoTest {
 
     @Test
     void dadoUnContratoDeLuciaSobreMenuParrilleroConMozos_alConsultarImporteYDescripcion_devuelveLosVigentes() {
-        // Given / When
+
         Contrato contrato = new Contrato("Lucía", new MozosAdicionales(carta.menu("Menú Parrillero")));
 
-        // Then
         assertEquals("Lucía", contrato.getCliente());
-        assertEquals(360_000, contrato.getImporte());
+        assertEquals(360000, contrato.getImporte());
         assertEquals("Menú Parrillero + Mozos adicionales", contrato.getDescripcion());
     }
 
     @Test
     void dadoUnContratoCreado_alActualizarElPrecioDeUnServicio_elImporteContratadoNoCambia() {
-        // Given
+
         Contrato contrato = new Contrato("Lucía", carta.menu("Menú Parrillero"));
 
-        // When
-        carta.servicio("Parrillada completa").actualizarPrecio(260_000);
+        carta.servicio("Parrillada completa").actualizarPrecio(260000);
 
-        // Then
-        assertEquals(360_000, carta.menu("Menú Parrillero").precio());
-        assertEquals(342_000, contrato.getImporte());
+        assertEquals(360000, carta.menu("Menú Parrillero").precio());
+        assertEquals(342000, contrato.getImporte());
     }
 }

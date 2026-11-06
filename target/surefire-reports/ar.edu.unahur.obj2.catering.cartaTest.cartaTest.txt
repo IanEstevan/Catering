@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ar.edu.unahur.obj2.catering.cartaTest.cartaTest
+-------------------------------------------------------------------------------
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.031 s -- in ar.edu.unahur.obj2.catering.cartaTest.cartaTest

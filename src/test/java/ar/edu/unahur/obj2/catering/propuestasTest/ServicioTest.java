@@ -25,22 +25,22 @@ public class ServicioTest {
     @Test
     void dadoUnServicio_alConsultarPrecioYDescripcion_devuelveSuPrecioYSuNombre() {
         // Given
-        Servicio servicio = new Servicio("Mesa dulce", 60_000);
+        Servicio servicio = new Servicio("Mesa dulce", 60000);
 
         // When / Then
-        assertEquals(60_000, servicio.precio());
+        assertEquals(60000, servicio.precio());
         assertEquals("Mesa dulce", servicio.descripcion());
     }
 
     @Test
     void dadoUnServicioSuelto_alContarServicios_devuelveUno() {
-        assertEquals(1, new Servicio("Mesa dulce", 60_000).cantidadServicios());
+        assertEquals(1, new Servicio("Mesa dulce", 60000).cantidadServicios());
     }
 
     @Test
     void dadoUnServicio_alConsultarInclusionPorNombre_soloIncluyeSuPropioNombre() {
         // Given
-        Servicio servicio = new Servicio("Mesa dulce", 60_000);
+        Servicio servicio = new Servicio("Mesa dulce", 60000);
 
         // When / Then
         assertTrue(servicio.incluye("Mesa dulce"));
@@ -50,12 +50,12 @@ public class ServicioTest {
     @Test
     void dadoUnServicio_alActualizarSuPrecioANegativo_lanzaPrecioNegativoYConservaElAnterior() {
         // Given
-        Servicio servicio = new Servicio("Mesa dulce", 60_000);
+        Servicio servicio = new Servicio("Mesa dulce", 60000);
 
         // When
         assertThrows(PrecioNegativoException.class, () -> servicio.actualizarPrecio(-5));
 
         // Then
-        assertEquals(60_000, servicio.precio());
+        assertEquals(60000, servicio.precio());
     }
 }

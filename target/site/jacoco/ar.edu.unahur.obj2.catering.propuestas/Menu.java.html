@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Menu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">catering</a> &gt; <a href="index.source.html" class="el_package">ar.edu.unahur.obj2.catering.propuestas</a> &gt; <span class="el_source">Menu.java</span></div><h1>Menu.java</h1><pre class="source lang-java linenums">package ar.edu.unahur.obj2.catering.propuestas;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ar.edu.unahur.obj2.catering.exepciones.DescuentoInvalidoException;
+import ar.edu.unahur.obj2.catering.exepciones.PropuestaNoIncluidaException;
+
+public class Menu implements Propuesta {
+
+    private final String nombre;
+    private final double descuento;
+<span class="fc" id="L13">    private final List&lt;Propuesta&gt; componentes = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L15">    public Menu(String nombre, double descuento) {</span>
+<span class="fc bfc" id="L16" title="All 4 branches covered.">        if (descuento &lt; 0 || descuento &gt; 100) {</span>
+<span class="fc" id="L17">            throw new DescuentoInvalidoException(&quot;El descuento debe estar entre 0 y 100, se recibio: &quot; + descuento);</span>
+        }
+<span class="fc" id="L19">        this.nombre = nombre;</span>
+<span class="fc" id="L20">        this.descuento = descuento;</span>
+<span class="fc" id="L21">    }</span>
+
+    public void agregar(Propuesta propuesta) {
+<span class="fc" id="L24">        componentes.add(propuesta);</span>
+<span class="fc" id="L25">    }</span>
+
+    public void quitar(Propuesta propuesta) throws PropuestaNoIncluidaException {
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (!componentes.remove(propuesta)) {</span>
+<span class="fc" id="L29">            throw new PropuestaNoIncluidaException(</span>
+<span class="fc" id="L30">                    &quot;'&quot; + propuesta.descripcion() + &quot;' no es componente directo de '&quot; + nombre + &quot;'&quot;);</span>
+        }
+<span class="fc" id="L32">    }</span>
+
+    @Override
+    public double precio() {
+<span class="fc" id="L36">        double suma = componentes.stream().mapToDouble(Propuesta::precio).sum();</span>
+<span class="fc" id="L37">        return suma * (1 - descuento / 100);</span>
+    }
+
+    @Override
+    public String descripcion() {
+<span class="fc" id="L42">        return nombre;</span>
+    }
+
+    @Override
+    public int cantidadServicios() {
+<span class="fc" id="L47">        return componentes.stream().mapToInt(Propuesta::cantidadServicios).sum();</span>
+    }
+
+    @Override
+    public boolean incluye(String nombreServicio) {
+<span class="fc" id="L52">        return componentes.stream().anyMatch(componente -&gt; componente.incluye(nombreServicio));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

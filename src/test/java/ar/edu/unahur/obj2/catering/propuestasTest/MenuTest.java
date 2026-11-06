@@ -42,7 +42,7 @@ public class MenuTest {
 
     @Test
     void dadoPackFiesta_alCalcularPrecio_aplicaElDescuentoDelMenu() {
-        assertEquals(256_500, carta.menu("Pack Fiesta").precio());
+        assertEquals(256500, carta.menu("Pack Fiesta").precio());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class MenuTest {
 
         evento.agregar(extra);
 
-        assertEquals(598_800, evento.precio());
+        assertEquals(598800, evento.precio());
         assertEquals(7, evento.cantidadServicios());
     }
 
@@ -102,7 +102,7 @@ public class MenuTest {
                 () -> parrillero.quitar(carta.servicio("DJ y sonido")));
 
         assertEquals(3, parrillero.cantidadServicios());
-        assertEquals(342_000, parrillero.precio());
+        assertEquals(342000, parrillero.precio());
     }
 
     @Test

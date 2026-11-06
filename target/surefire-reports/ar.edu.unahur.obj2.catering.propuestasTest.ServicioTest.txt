@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ar.edu.unahur.obj2.catering.propuestasTest.ServicioTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in ar.edu.unahur.obj2.catering.propuestasTest.ServicioTest
